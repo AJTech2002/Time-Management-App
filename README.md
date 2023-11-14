@@ -1,16 +1,5 @@
-# timemanagement
+# Time Management Application
 
-A new Flutter project.
+Personal Project used to manage my time hour by hour. Place the event, then slide left/right to complete or mark as uncompleted and replace with the event actually done. Then look at analytics to track how your time is being spent.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img width="463" alt="image" src="https://github.com/AJTech2002/Time-Management-App/assets/25098044/9fb97bfb-6792-44d5-b5a5-5fb66011616d">
