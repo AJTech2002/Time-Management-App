@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
+import 'package:timemanagement/calendar_event_screen.dart';
 import 'package:timemanagement/calendar_screen.dart';
 import 'package:timemanagement/event.dart';
 
@@ -22,7 +23,14 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: CalendarScreen(),
+      initialRoute: '/',
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/': (context) => const CalendarScreen(),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/calendarEvent': (context) => const CalendarEventScreen(),
+      },
+      // home: CalendarScreen(),
     );
   }
 }
@@ -34,6 +42,7 @@ class CalendarEvent extends StatelessWidget {
   final Function() onIncomplete;
   final Function() onComplete;
   final Function() onClick;
+  final Function() onLongPress;
 
   const CalendarEvent({
     super.key,
@@ -42,6 +51,7 @@ class CalendarEvent extends StatelessWidget {
     required this.onClick,
     required this.onComplete,
     required this.onIncomplete,
+    required this.onLongPress,
   });
 
   String getHour() {
@@ -135,6 +145,7 @@ class CalendarEvent extends StatelessWidget {
               ),
               child: GestureDetector(
                 onTap: this.onClick,
+                onLongPress: this.onLongPress,
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   height: 65,

@@ -6,6 +6,7 @@ class CalendarEventBlock extends Equatable {
   final String eventName;
   final Color eventColor;
   bool completed;
+  String description;
   CalendarEventBlock? replacedBy;
 
   CalendarEventBlock({
@@ -14,15 +15,16 @@ class CalendarEventBlock extends Equatable {
     required this.eventColor,
     this.completed = false,
     this.replacedBy,
+    this.description = "",
   });
 
   static CalendarEventBlock fromJson(Map<String, dynamic> json) {
     CalendarEventBlock block = CalendarEventBlock(
-      hour: json["hour"],
-      eventName: json["eventName"],
-      eventColor: Color(json["eventColor"]),
-      completed: json["completed"],
-    );
+        hour: json["hour"],
+        eventName: json["eventName"],
+        eventColor: Color(json["eventColor"]),
+        completed: json["completed"],
+        description: json["description"] ?? "");
 
     if (json.containsKey("replacedBy")) {
       block.replacedBy = CalendarEventBlock(
@@ -41,6 +43,7 @@ class CalendarEventBlock extends Equatable {
       "eventName": eventName,
       "eventColor": eventColor.value,
       "completed": completed,
+      "description": description
     };
 
     if (replacedBy != null) {

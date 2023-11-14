@@ -23,6 +23,7 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
       Container(
         margin: EdgeInsets.symmetric(horizontal: 5),
         child: CalendarEvent(
+          onLongPress: () => {},
           event: null,
           hour: -1,
           onClick: () {
@@ -38,6 +39,7 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
             (e) => Container(
               margin: const EdgeInsets.symmetric(horizontal: 5),
               child: CalendarEvent(
+                onLongPress: () => {},
                 event: e,
                 hour: -1,
                 onClick: () {

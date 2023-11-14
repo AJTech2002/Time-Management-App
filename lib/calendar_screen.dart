@@ -143,6 +143,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
     );
   }
 
+  void setDescriptionForHour(int hour) {}
+
   void selectEventForIncompletion(int hour) {
     showModalBottomSheet(
       context: context,
@@ -180,6 +182,41 @@ class _CalendarScreenState extends State<CalendarScreen> {
     );
   }
 
+  int evaluatePercentage() {
+    int currentHour = DateTime.now().hour;
+
+    DateTime today = DateTime(
+      DateTime.now().year,
+      DateTime.now().month,
+      DateTime.now().day,
+    );
+
+    if (selectedDay.isBefore(today)) {
+      currentHour = 24;
+    } else if (selectedDay.isAfter(today)) {
+      currentHour = 0;
+    }
+
+    int counted = 0;
+    double efficiency = 0;
+
+    for (int i = 0; i < 24; i++) {
+      if (i > currentHour - 1) break;
+
+      if (eventMappedToHour.containsKey(i)) {
+        counted += 1;
+        if (eventMappedToHour[i]!.completed &&
+            eventMappedToHour[i]!.replacedBy == null) {
+          efficiency += 1.0;
+        }
+      }
+    }
+    if (counted == 0) return 0;
+
+    efficiency /= counted;
+    return (efficiency * 100).round();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -214,7 +251,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     child: Row(
                       children: [
                         Icon(Icons.lightbulb),
-                        Text("50%"),
+                        Text("${evaluatePercentage()}%"),
                       ],
                     ),
                   )
@@ -258,6 +295,16 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         event: eventMappedToHour[e],
                         hour: e,
                         onClick: () => onEventSelected(e),
+                        onLongPress: () {
+                          String uniqueId =
+                              selectedDay.day.toString().padLeft(2, '0') +
+                                  selectedDay.month.toString().padLeft(2, '0') +
+                                  selectedDay.year.toString().padLeft(2, '0') +
+                                  e.toString().padLeft(2, '0');
+                          // Handle description popup
+                          Navigator.of(context)
+                              .pushNamed("/calendarEvent", arguments: uniqueId);
+                        },
                         onComplete: () {
                           this.setState(() {
                             eventMappedToHour[e]?.completed = true;
